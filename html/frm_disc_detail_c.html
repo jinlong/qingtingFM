@@ -1,0 +1,183 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+    <title>蜻蜓FM</title>
+    <link rel="stylesheet" type="text/css" href="../css/api.css" />
+	<style>
+		header{
+            height: 266px; position: relative;
+        }
+        header .title{
+            position: absolute; z-index: 10; font-size: 14px;
+            width: 100%; height: 103px; line-height: 103px;
+            background:url(../image/vchannel_album_default.png) no-repeat 6% center;
+            -webkit-background-size: contain;
+            background-size: contain;
+            -webkit-box-sizing: border-box;
+            box-sizing: border-box;
+            padding-left: 134px; top: 24%; color: #eee;
+        }
+        header .title img{
+            position: absolute; left: 4%; height: 100%;
+        }
+        #poster{
+            position: absolute; z-index: 1; width: 100%; height: 100%;
+        }
+        #poster img{
+            width: 100%; height: 100%;
+        }
+        #nav{
+            position: absolute; bottom: 0; width: 100%; z-index: 3;
+            background-color: rgba(255,255,255,.1);
+        }
+        #nav ul{
+            display: -webkit-box;
+            display: -webkit-flex;
+            display: flex;
+        }
+        #nav ul li{
+            background:url(../image/voice_logo_vertical.png) no-repeat right center;
+            -webkit-background-size: 1px 30px;
+            background-size: 1px 30px;
+            text-align: center;
+            -webkit-box-flex: 1; 
+            -webkit-flex: 1;
+            flex: 1;
+        }
+        #nav ul li:last-child{
+            background-image: none;
+        }
+        #nav ul li span{
+            display:inline-block; padding-top: 34px; color: #fff;
+            padding-bottom: 10px; font-size: 14px;
+            background-position: center top;
+            background-repeat: no-repeat;
+            -webkit-background-size: 34px;
+            background-size: 34px;
+        }
+        #nav ul li.focus{
+            background-color: rgba(0,0,0,.2);
+        }
+        #nav .collect span{
+            background-image: url(../image/ic_channel_addfav.png);
+        }
+        #nav ul .collect.focus span{
+            background-image: url(../image/ic_channel_fav_s.png);
+        }
+        #nav .share span{
+            background-image: url(../image/ic_channel_share.png);
+        }
+        #nav ul .share.focus span{
+            background-image: url(../image/ic_channel_share_s.png);
+        }
+        #nav .download span{
+            background-image: url(../image/ic_channel_download.png);
+        }
+        #nav ul .download.focus span{
+            background-image: url(../image/ic_channel_download_s.png);
+        }
+
+        #main .title{
+            background-color: #eaeaea; font-size: 14px;
+            padding: 10px 20px; color: #787878;
+            border-bottom: 1px solid #ddd;
+        }
+        #main ul{
+            background-color: #eee;
+        }
+        #main ul li{
+            background:url(../image/virtual_triangular.png) no-repeat 98% 78%;
+            -webkit-background-size: 11px;
+            background-size: 11px;
+        }
+        #main ul li.focus{
+            background-color: #bebebe;
+        }
+
+        #main ul div{
+            padding:10px 20px 14px; font-size: 16px; color: #272930;
+        }
+        #main ul li.active div{
+            color: #e13430; padding-left: 40px;
+            background:url(../image/scheduleliving.png) no-repeat 20px 44%;
+            -webkit-background-size: 10px 13px;
+            background-size: 10px 13px;
+        }
+        #main ul p{
+            margin-left: 20px; padding-right: 10px; padding-bottom: 10px;
+            border-bottom: 1px solid #ddd; font-size: 14px; color: #7e7e7e;
+            overflow: hidden;
+        }
+        #main ul p em{
+            float: right; margin-right: 10px;
+        }
+	</style>
+</head>
+<body>
+    <header>
+        <div id="poster">
+            <img src="../image/vchannel_defaultbg.jpg" />
+        </div>
+        <div class="title">
+            <img src="../image/pic/yinyue_p1.jpg" />
+            看社会万象，观人生百态。
+        </div>
+        <div id="nav">
+            <ul>
+                <li class="collect" tapmode="focus"><span>收藏</span></li>
+                <li class="share" tapmode="focus"><span>分享</span></li>
+                <li class="download" tapmode="focus"><span>下载</span></li>
+            </ul>
+        </div>
+    </header>
+    <div id="main">
+        <div class="title">节目列表</div>
+        <ul>
+            <li class="active" tapmode="focus">
+                <div>印度高温天气已造成超过1100人死亡</div>
+                <p>
+                    <span>23分钟前更新</span><em>时长:1分3秒</em>
+                </p>
+            </li>
+            <li tapmode="focus">
+                <div>印度高温天气已造成超过1100人死亡</div>
+                <p>
+                    <span>5小时前更新</span><em>时长:1分3秒</em>
+                </p>
+            </li>
+            <li tapmode="focus">
+                <div>印度高温天气已造成超过1100人死亡</div>
+                <p>
+                    <span>刚刚更新</span><em>时长:1分3秒</em>
+                </p>
+            </li>
+            <li tapmode="focus">
+                <div>印度高温天气已造成超过1100人死亡</div>
+                <p>
+                    <span>刚刚更新</span><em>时长:1分3秒</em>
+                </p>
+            </li>
+            <li tapmode="focus">
+                <div>印度高温天气已造成超过1100人死亡</div>
+                <p>
+                    <span>刚刚更新</span><em>时长:1分3秒</em>
+                </p>
+            </li>
+            <li tapmode="focus">
+                <div>印度高温天气已造成超过1100人死亡</div>
+                <p>
+                    <span>刚刚更新</span><em>时长:1分3秒</em>
+                </p>
+            </li>
+        </ul>
+    </div>
+</body>
+<script type="text/javascript" src="../script/api.js"></script>
+<script type="text/javascript">
+    apiready = function(){
+
+    };
+</script>
+</html>

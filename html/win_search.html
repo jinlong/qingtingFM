@@ -1,0 +1,107 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+    <title>蜻蜓FM</title>
+    <link rel="stylesheet" type="text/css" href="../css/api.css" />
+	<style>
+		header{
+            height: 56px; line-height: 56px;
+            background-color: #e13430;
+            display: -webkit-box;
+            display: -webkit-flex;
+            display: flex;
+        }
+        .inputbox{
+            position: relative;
+            background:url(../image/searchinput.png) no-repeat left center;
+            -webkit-background-size: contain;
+            background-size: contain;
+            -webkit-box-flex: 1; 
+            -webkit-flex: 1;
+            flex: 1;
+        }
+        .back{
+            display:inline-block; width: 40px; height: 100%;
+            background:url(../image/search_back.png) no-repeat left center;
+            -webkit-background-size: contain;
+            background-size: contain;
+        }
+        .search{
+            font-size: 14px; color: #fff; display: inline-block;
+            padding: 0 10px;
+        }
+        .inputbox input{
+            background: url(../image/search_zoom.png) no-repeat 7px center;
+            -webkit-background-size: 18px;
+            background-size: 18px;
+            font-size: 14px; outline: none;
+            padding: 10px 30px; 
+        }
+        .inputbox .close{
+            position: absolute; right: 0; bottom: 12px;
+            display: inline-block; width: 32px; height: 32px;
+            background: url(../image/search_delete.png) no-repeat;
+            -webkit-background-size: contain;
+            background-size: contain;
+        }
+        #recent{
+            background-color: #eaeaea; overflow: hidden;
+            border-bottom: 1px solid #ddd;
+        }
+        #recent span, #recent em{
+            display: inline-block; padding: 10px 20px;
+            font-size: 12px; color: #565656;
+        }
+        #recent em{
+            float: right; 
+        }
+        #recent em:before{
+            display: inline-block; content: '';
+            margin-right: 4px;
+            width: 16px; height: 16px; vertical-align: bottom;
+            background: url(../image/search_trash.png) no-repeat;
+            -webkit-background-size: contain;
+            background-size: contain;
+        }
+	</style>
+</head>
+<body>
+    <header>
+        <i class="back" tapmode onclick="api.closeWin()"></i>
+        <div class="inputbox">
+            <input type="text" placeholder="搜索电台，专辑，节目" />
+            <i class="close" tapmode onclick="del()"></i>
+        </div>
+        <span class="search">搜索</span>
+    </header>
+    <div id="recent">
+        <span>最近搜索</span><em>清除全部</em>
+    </div>
+</body>
+<script type="text/javascript" src="../script/api.js"></script>
+<script type="text/javascript">
+    function del(){
+        var input = document.querySelector('.inputbox input');
+        input.value = '';
+    }
+    apiready = function(){
+		var header = document.querySelector('header');
+        $api.fixIos7Bar(header);
+
+        var recent = document.querySelector('#recent');
+        var headerPos = $api.offset(recent);
+        api.openFrame({
+            name: 'frm_search_res',
+            url: 'frm_search_res.html',
+            rect: {
+                x: 0,
+                y: headerPos.t + headerPos.h,
+                w: 'auto',
+                h: 'auto'
+            }
+        });
+    };
+</script>
+</html>

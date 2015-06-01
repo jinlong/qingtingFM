@@ -1,0 +1,163 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+    <title>蜻蜓FM</title>
+    <link rel="stylesheet" type="text/css" href="../css/api.css" />
+	<style>
+		body{background-color: #eee; padding-bottom: 5px;}
+		#user{
+			height: 24%;
+			background: url(../image/userinfo_bg.jpg) no-repeat center top;
+			-webkit-background-size: cover;
+			background-size: cover;
+		}
+		#avator{
+			width: 7em; font-size: 12px; margin: 0 auto;
+			padding-top: 106px; color: #fff; padding-bottom: 10px;
+			background: url(../image/userinfo_avatar.png) no-repeat center 16px;
+			-webkit-background-size: contain;
+			background-size: contain;
+		}
+		ul{
+			border-top: 1px solid #dedede;
+			border-bottom: 1px solid #dedede; margin-bottom: 5px;
+			background-color: #fff;
+		}
+		ul li{
+			padding-left: 16%;
+		}
+		ul li.active{
+			background-color: #eee;
+		}
+		ul.first{
+			border-top: 0;
+		}
+		ul.last{
+			margin-bottom: 0;
+		}
+		ul li h1{
+			font-size: 16px; color: #272930; padding:10px 0;
+		}
+		ul li label{
+			font-size: 14px; color: #787878; display: block;
+			padding-bottom: 10px; border-bottom: 1px solid #ddd;
+			max-width: 100%; white-space: nowrap; 
+			text-overflow: ellipsis; overflow: hidden;
+		}
+		ul li:last-child label{
+			border-bottom: 0;
+		}
+		.collect, .recent, .order, .msg, .contact, .timer, .alarm, .setting{
+			background-position: 10px center;
+			background-repeat: no-repeat;
+			-webkit-background-size: 10%;
+			background-size: 10%;
+		}
+		.collect{
+			background-image: url(../image/userinfo_collection.png);
+		}
+		.recent{
+			background-image: url(../image/userinfo_history.png);
+		}
+		.order{
+			background-image: url(../image/userinfo_reserve.png);
+		}
+		.msg{
+			background-image: url(../image/userinfo_conversations.png);
+		}
+		.contact{
+			background-image: url(../image/userinfo_contact.png);
+		}
+		.timer{
+			background-image: url(../image/userinfo_timer.png);
+		}
+		.alarm{
+			background-image: url(../image/userinfo_alarm.png);
+		}
+		.setting{
+			background-image: url(../image/userinfo_more.png);
+		}
+	</style>
+</head>
+<body>
+    <div id="user">
+    	<div id="avator">
+    		请点击头像登录
+    	</div>
+    </div>
+    <ul class="first">
+    	<li tapmode="active" class="collect">
+    		<div>
+    			<h1>我的收藏</h1>
+    			<label>收藏喜欢的内容，更新及时告诉你</label>
+    		</div>
+    	</li>
+    	<li tapmode="active" class="recent">
+    		<div>
+    			<h1>最近收听</h1>
+    			<label>约瑟翰 庞麦郎 - 圆滑的麦当娜</label>
+    		</div>
+    	</li>
+    	<li tapmode="active" class="order">
+    		<div>
+    			<h1>我的预约</h1>
+    			<label>预约直播内容，到点准时通知您</label>
+    		</div>
+    	</li>
+    </ul>
+    <ul>
+    	<li tapmode="active" class="msg">
+    		<div>
+    			<h1>消息</h1>
+    			<label>无消息</label>
+    		</div>
+    	</li>
+    	<li tapmode="active" class="contact">
+    		<div>
+    			<h1>联系人</h1>
+    			<label>暂无联系人</label>
+    		</div>
+    	</li>
+    </ul>
+    <ul>
+    	<li tapmode="active" class="timer">
+    		<div>
+    			<h1>定时关闭</h1>
+    			<label>未设置</label>
+    		</div>
+    	</li>
+    	<li tapmode="active" class="alarm">
+    		<div>
+    			<h1>闹钟</h1>
+    			<label>闹钟未开启</label>
+    		</div>
+    	</li>
+    </ul>
+    <ul>
+    	<li tapmode="active" class="setting" onclick="setting()">
+    		<div>
+    			<h1>更多设置</h1>
+    			<label>缓存，音质，推送，使用帮助等</label>
+    		</div>
+    	</li>
+    </ul>
+</body>
+<script type="text/javascript" src="../script/api.js"></script>
+<script type="text/javascript">
+	function setting(){
+		api.openWin({
+			name: 'win_setting',
+			url: 'win_setting.html',
+			animation: {
+				type: 'movein',
+				subType: 'from_right'
+			}
+		});
+	}
+    apiready = function(){
+
+    };
+</script>
+</html>

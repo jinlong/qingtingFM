@@ -1,0 +1,296 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+    <title>蜻蜓FM</title>
+    <link rel="stylesheet" type="text/css" href="../css/api.css" />
+	<style>
+        html,body{min-height: 100%;}
+        body{
+            background-color: #eee;
+        }
+		.swipe {
+          overflow: hidden;
+          visibility: hidden;
+          position: relative;
+        }
+        .swipe-wrap {
+          overflow: hidden;
+          position: relative;
+        }
+        .swipe-wrap > div {
+          float:left; 
+          width:100%;
+          position: relative;
+        }
+        .swipe-wrap > div img{
+            width: 100%; display: block;
+        }
+        #slide{
+            border-bottom: 1px solid #dedede; background-color: #fff;
+        }
+        #slide label{
+            display: block; color: #4b4b4b; width: 100%;
+            padding: 10px; font-size: 14px; 
+            white-space: nowrap; overflow: hidden;
+            text-overflow: ellipsis;
+        }
+        #slide .pointer{
+            position: absolute; bottom: 0; left: 0; width: 12.5%;
+            height: 2px; background-color: #e13430;
+            -webkit-transition: all .2s;
+            transition:all .2s;
+        }
+        section{
+            margin-top: 8px; border-top: 1px solid #ddd;
+            border-bottom: 1px solid #ddd;
+            background-color: #fff;
+        }
+        .content{
+            padding: 0 10px 15px;
+            display: -webkit-box;
+            display: -webkit-flex;
+            display: flex;
+        }
+        .content li{
+            padding-right: 10px;
+            -webkit-box-flex: 1; 
+            -webkit-flex: 1;
+            flex: 1;
+        }
+        .content li:last-child{
+            padding-right: 0;
+        }
+        .content li img{
+            width: 100%;
+        }
+        .content li label{
+            font-size: 14px; height: 3em; overflow: hidden;
+            margin-top: 4px; color: #626262; line-height: 1.5;
+        }
+        section header{
+            padding-top: 15px; overflow: hidden; padding-bottom: 10px;
+        }
+        section header span{
+            float: left; font-size: 16px; border-left: 4px solid #f43530;
+            margin-left: 10px; padding-left: 10px;
+        }
+        section header em{
+            float: right; font-size: 14px; color: #e13733; margin-right: 10px;
+        }
+	</style>
+</head>
+<body>
+<div id='slide' class='swipe'>
+    <div class='swipe-wrap'>
+        <div>
+            <img src="../image/slide/slide1.jpg" />
+            <label>推广：新一季撕名牌大战开启</label>
+        </div>
+        <div>
+            <img src="../image/slide/slide2.jpg" />
+            <label>2015周华健全球巡演 郑州站 选歌抢票</label>
+        </div>
+        <div>
+            <img src="../image/slide/slide3.jpg" />
+            <label>多尔衮统一中国为何我会失败，六大弊政之谜又是什么？</label>
+        </div>
+        <div>
+            <img src="../image/slide/slide4.jpg" />
+            <label>最新更新，全本完结，不容错过！</label>
+        </div>
+        <div>
+            <img src="../image/slide/slide1.jpg" />
+            <label>推广：新一季撕名牌大战开启</label>
+        </div>
+        <div>
+            <img src="../image/slide/slide2.jpg" />
+            <label>2015周华健全球巡演 郑州站 选歌抢票</label>
+        </div>
+        <div>
+            <img src="../image/slide/slide3.jpg" />
+            <label>多尔衮统一中国为何我会失败，六大弊政之谜又是什么？</label>
+        </div>
+        <div>
+            <img src="../image/slide/slide4.jpg" />
+            <label>最新更新，全本完结，不容错过！</label>
+        </div>
+    </div>
+    <em class="pointer"></em>
+</div>
+<section>
+    <header>
+        <span>新闻</span><em>更多&gt;</em>
+    </header>
+    <ul class="content">
+        <li>
+            <div>
+                <img src="../image/pic/news_p1.jpg" />
+            </div>
+            <label>苏州24岁工程师为境外刺</label>
+        </li>
+        <li>
+            <div>
+                <img src="../image/pic/news_p1.jpg" />
+            </div>
+            <label>苏州24岁工程师为境外刺探军情被捕</label>
+        </li>
+        <li>
+            <div>
+                <img src="../image/pic/news_p1.jpg" />
+            </div>
+            <label>苏州24岁工程师</label>
+        </li>
+    </ul>
+</section>
+<section>
+    <header>
+        <span>北京</span><em>更多&gt;</em>
+    </header>
+    <ul class="content">
+        <li>
+            <div>
+                <img src="../image/pic/beijing_p1.jpg" />
+            </div>
+            <label>夏威夷与众不同的探险和风光</label>
+        </li>
+        <li>
+            <div>
+                <img src="../image/pic/beijing_p1.jpg" />
+            </div>
+            <label>张开嘴迈开腿</label>
+        </li>
+        <li>
+            <div>
+                <img src="../image/pic/beijing_p1.jpg" />
+            </div>
+            <label>这种微信红包千万别打开</label>
+        </li>
+    </ul>
+</section>
+<section>
+    <header>
+        <span>音乐</span><em>更多&gt;</em>
+    </header>
+    <ul class="content">
+        <li>
+            <div>
+                <img src="../image/pic/yinyue_p1.jpg" />
+            </div>
+            <label>唯美的轻音乐</label>
+        </li>
+        <li>
+            <div>
+                <img src="../image/pic/yinyue_p1.jpg" />
+            </div>
+            <label>音乐心情，总有一首歌戳中你的心</label>
+        </li>
+        <li>
+            <div>
+                <img src="../image/pic/yinyue_p1.jpg" />
+            </div>
+            <label>怀旧歌单&节目</label>
+        </li>
+    </ul>
+</section>
+<section>
+    <header>
+        <span>新闻</span><em>更多&gt;</em>
+    </header>
+    <ul class="content">
+        <li>
+            <div>
+                <img src="../image/pic/news_p1.jpg" />
+            </div>
+            <label>苏州24岁工程师为境外刺</label>
+        </li>
+        <li>
+            <div>
+                <img src="../image/pic/news_p1.jpg" />
+            </div>
+            <label>苏州24岁工程师为境外刺探军情被捕</label>
+        </li>
+        <li>
+            <div>
+                <img src="../image/pic/news_p1.jpg" />
+            </div>
+            <label>苏州24岁工程师</label>
+        </li>
+    </ul>
+</section>
+<section>
+    <header>
+        <span>北京</span><em>更多&gt;</em>
+    </header>
+    <ul class="content">
+        <li>
+            <div>
+                <img src="../image/pic/beijing_p1.jpg" />
+            </div>
+            <label>夏威夷与众不同的探险和风光</label>
+        </li>
+        <li>
+            <div>
+                <img src="../image/pic/beijing_p1.jpg" />
+            </div>
+            <label>张开嘴迈开腿</label>
+        </li>
+        <li>
+            <div>
+                <img src="../image/pic/beijing_p1.jpg" />
+            </div>
+            <label>这种微信红包千万别打开</label>
+        </li>
+    </ul>
+</section>
+<section>
+    <header>
+        <span>音乐</span><em>更多&gt;</em>
+    </header>
+    <ul class="content">
+        <li>
+            <div>
+                <img src="../image/pic/yinyue_p1.jpg" />
+            </div>
+            <label>唯美的轻音乐</label>
+        </li>
+        <li>
+            <div>
+                <img src="../image/pic/yinyue_p1.jpg" />
+            </div>
+            <label>音乐心情，总有一首歌戳中你的心</label>
+        </li>
+        <li>
+            <div>
+                <img src="../image/pic/yinyue_p1.jpg" />
+            </div>
+            <label>怀旧歌单&节目</label>
+        </li>
+    </ul>
+</section>
+</body>
+<script type="text/javascript" src="../script/api-lite.js"></script>
+<script type="text/javascript" src="../script/zepto.js"></script>
+<script type="text/javascript" src="../script/swipe.js"></script>
+<script type="text/javascript">
+    window.mySwipe = new Swipe(document.getElementById('slide'), {
+        auto: 5000,
+        continuous: true,
+        disableScroll: true,
+        stopPropagation: true,
+        callback: function(index, elem) {
+            var $pointer = $('#slide .pointer');
+            var left = 12.5*index;
+            $pointer.css('left', left+'%');
+        },
+        transitionEnd: function(index, elem) {
+            
+        }
+    });
+
+    apiready = function(){
+        
+    };
+</script>
+</html>

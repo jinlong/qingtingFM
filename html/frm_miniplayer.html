@@ -1,0 +1,177 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+    <title>蜻蜓FM</title>
+    <link rel="stylesheet" type="text/css" href="../css/api.css" />
+	<style>
+		#miniplayer{
+			height: 52px; border-top: 3px solid #3d3939;
+			background: url(../image/miniplay_bg.jpg) no-repeat;
+			-webkit-background-size: cover;
+			background-size: cover;
+			position: relative;
+		}
+		#miniplayer span{
+			position: absolute;
+			white-space: nowrap;
+			background-repeat: no-repeat;
+			background-position: center;
+			-webkit-background-size: contain;
+			background-size: contain;
+		}
+		#miniplayer .radio.active{
+			background-color: rgba(0,0,0,.2);
+		}
+		#miniplayer .radio .inner{
+			padding-left: 72px;
+			max-width: 50%; color: #fff; font-size: 14px; line-height: 50px;
+			white-space: nowrap; text-overflow: ellipsis; overflow: hidden;
+			background:url(../image/scheduleliving2.png) no-repeat 48px center;
+			-webkit-background-size: 25px 13px;
+			background-size: 25px 13px;
+		}
+		#miniplayer .menu, #miniplayer .play, #miniplayer .pause, #miniplayer .buffer, #miniplayer .next{
+			width: 36px; height: 36px; top: 6px;
+		}
+		#miniplayer .menu{
+			left: 10px; 
+			background-image: url(../image/miniplay_menu.png);
+		}
+		#miniplayer .menu.active{
+			background-image: url(../image/miniplay_menu_s.png);
+		}
+		#miniplayer .play{
+			right: 56px;
+			background-image: url(../image/miniplay_play.png);
+		}
+		#miniplayer .play.active{
+			background-image: url(../image/miniplay_play_s.png);
+		}
+		#miniplayer .pause{
+			right: 56px;
+			background-image: url(../image/miniplay_pause.png);
+		}
+		#miniplayer .pause.active{
+			background-image: url(../image/miniplay_pause_s.png);
+		}
+		#miniplayer .buffer{
+			background-image: none; right: 56px;
+		}
+		@-webkit-keyframes rotate{
+			from{
+				-webkit-transform: rotate(0deg);
+			}
+			to{
+				-webkit-transform: rotate(360deg);
+			}
+		}
+		@keyframes rotate{
+			from{
+				transform: rotate(0deg);
+			}
+			to{
+				transform: rotate(360deg);
+			}
+		}
+		#miniplayer .buffer:before{
+			content: ''; width: 100%; height: 100%;
+			display: inline-block;
+			background: url(../image/miniplay_buffer.png) no-repeat center;
+			-webkit-background-size: contain;
+			background-size: contain;
+			-webkit-animation: rotate 4s linear infinite;
+			animation: rotate 4s linear infinite;
+		}
+		#miniplayer .next{
+			right: 10px;
+			background-image: url(../image/miniplay_next.png);
+		}
+		#miniplayer .next.active{
+			background-image: url(../image/miniplay_next_s.png);
+		}
+		
+	</style>
+</head>
+<body>
+	<div id="miniplayer">
+		<span class="menu" tapmode="active" onclick="openRadioList()">
+		</span>
+		<div class="radio" tapmode="active" onclick="openRadioDetail()">
+			<div class="inner">
+				正说纪晓岚-第二集:纪晓岚入仕之谜
+			</div>
+		</div>
+		<span class="play" tapmode="active" onclick="playRadio(this)"></span>
+		<span class="next" tapmode="active" onclick="nextRadio()"></span>
+	</div>
+</body>
+<script type="text/javascript" src="../script/api-lite.js"></script>
+<script type="text/javascript" src="../script/zepto.js"></script>
+<script type="text/javascript">
+	var radios = ['see_you_again','new_soul','i_am_you'];
+	var i = 0;
+	function playRadio(it){
+		if($(it).hasClass('pause')){
+			$(it).removeClass().addClass('play');
+			api.stopPlay();
+		}else{
+			$(it).removeClass().addClass('buffer');
+			setTimeout(function(){
+				$(it).removeClass().addClass('pause');
+				var radio = radios[i];
+				api.startPlay({
+				    path: 'widget://res/'+ radio +'.mp3'
+				},function(){
+				    // api.alert({msg: '播放完成'});
+				});
+			},500);
+		}
+	}
+
+	function nextRadio(){
+		i++;
+		if(i > 2){
+			i = 0;
+		}
+		var radio = radios[i];
+		api.stopPlay();
+		api.startPlay({
+		    path: 'widget://res/'+ radio +'.mp3'
+		},function(){
+		    // api.alert({msg: '播放完成'});
+		});
+	}
+
+	function openRadioList(){
+		var height = api.winHeight - 55;
+		api.openFrame({
+		    name: 'frm_radiolist',
+		    url: 'frm_radiolist.html',
+		    bounces: false,
+		    bgColor: 'rgba(0,0,0,0.6)',
+		    rect:{
+		        x: 0,
+		        y: 0,
+		        w: api.winWidth,
+		        h: height
+		    }
+		});
+	}
+	function openRadioDetail(){
+		api.openWin({
+			name: 'win_radio_detail',
+			url: 'win_radio_detail.html',
+			animation: {
+				type: 'movein',
+				subType:"from_right"
+			}
+		});
+	}
+
+    apiready = function(){
+		
+    };
+</script>
+</html>

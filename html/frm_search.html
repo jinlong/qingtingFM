@@ -1,0 +1,150 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+    <title>蜻蜓FM</title>
+    <link rel="stylesheet" type="text/css" href="../css/api.css" />
+    <link rel="stylesheet" type="text/css" href="../css/common.css" />
+	<style>
+		em{
+            font-style: italic; color: #787878; font-size: 14px; width: 2em;
+        }
+        i{font-style: normal; font-size: 12px; color: #8c8c8c;}
+        label{
+            font-size: 16px;
+        }
+        ul li.active{
+            background-color: #eee;
+        }
+        ul li .inner{
+            margin-left: 20px; overflow: hidden;
+            padding: 15px 20px 15px 0; border-bottom: 1px solid #dedede;
+        }
+        ul li:last-child{
+            border-bottom: 0;
+        }
+        em, label{
+            float: left;
+        }
+        i{float: right;}
+        .top em, .top i{
+            color: #e13531;
+        }
+
+        .hairlines li .inner{
+            position: relative;
+            border:none;
+        }
+        .hairlines li .inner:after{
+            content: '';
+            position: absolute;
+            right: 0;
+            bottom: 0;
+            background: #dedede;
+            width: 100%;
+            height: 1px;
+            -webkit-transform: scaleY(0.5);
+                    transform: scaleY(0.5);
+            -webkit-transform-origin: 0 0;
+                    transform-origin: 0 0;
+        }
+	</style>
+</head>
+<body>
+    <ul id="rank">
+        <!-- <li tapmode="active" class="top">
+            <div class="inner">
+                <em>1</em>
+                <label for="">股市</label>
+                <i>62121</i>
+            </div>
+        </li>
+        <li tapmode="active" class="top">
+            <div class="inner">
+                <em>2</em>
+                <label for="">王思聪</label>
+                <i>40375</i>
+            </div>
+        </li>
+        <li tapmode="active" class="top">
+            <div class="inner">
+            <em>3</em>
+            <label for="">提速降费</label>
+            <i>27839</i>
+            </div>
+        </li>
+        <li tapmode="active">
+            <div class="inner">
+            <em>4</em>
+            <label for="">复仇者联盟2</label>
+            <i>23004</i>
+            </div>
+        </li> -->
+    </ul>
+</body>
+<script type="text/javascript" src="../script/api.js"></script>
+<script type="text/javascript" src="../script/sha.js"></script>
+<script type="text/javascript">
+    apiready = function(){
+        //1px线
+        if(window.devicePixelRatio && devicePixelRatio >= 2){
+            document.querySelector('ul').className = 'hairlines';
+        }
+
+        //云API
+        var appid = 'A6987231827714', 
+        appkey = '504531E6-7C61-3EF7-61FE-0B92A21FDED1';
+        var now = Date.now();
+        var hashStr = appid + 'UZ' + appkey + 'UZ' + now;
+        var shaObj = new jsSHA(hashStr, "TEXT");
+        var hash = shaObj.getHash("SHA-1", "HEX");
+        hash = hash +'.'+ now;
+        // alert(hash);
+
+        api.showProgress({
+            title: '加载中...',
+            text: '',
+            modal: true
+        });
+
+        api.ajax({
+            url: 'https://d.apicloud.com/mcm/api/rank?filter[order]=index ASC',
+            dataType: 'json',
+            // returnAll:false,
+            headers: {
+                'X-APICloud-AppId': appid,
+                'X-APICloud-AppKey': hash
+            }
+        },function(ret,err){
+            if (ret) {
+                // alert(JSON.stringify(ret)); 
+
+                var i = 0, len = ret.length; 
+                var htmlStr = '';
+                for(i; i<len; i++){
+                    var item = ret[i];
+                    var topClass = '';
+                    if(i<3){
+                        topClass = 'top';
+                    }
+                    
+                    htmlStr += '<li tapmode="active" class="'+ topClass +'">'+
+                        '<div class="inner">'+
+                            '<em>'+ item.index +'</em>'+
+                            '<label for="">'+ item.words +'</label>'+
+                            '<i>'+ item.hot +'</i>'+
+                        '</div>'+
+                    '</li>';
+                }
+
+                $api.byId('rank').innerHTML = htmlStr;
+
+                api.hideProgress();
+
+            }
+        });
+
+    };
+</script>
+</html>

@@ -1,0 +1,338 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+    <title>蜻蜓FM</title>
+    <link rel="stylesheet" type="text/css" href="../css/api.css" />
+	<style>
+        html,body{min-height: 100%;}
+        body{
+            background-color: #eee;
+        }
+		.swipe {
+          overflow: hidden;
+          visibility: hidden;
+          position: relative;
+        }
+        .swipe-wrap {
+          overflow: hidden;
+          position: relative;
+        }
+        .swipe-wrap > div {
+          float:left; 
+          width:100%;
+          position: relative;
+        }
+        .swipe-wrap > div img{
+            width: 100%; display: block;
+        }
+        #slide{
+            border-bottom: 1px solid #dedede; background-color: #fff;
+        }
+        #slide label{
+            display: block; color: #4b4b4b; width: 100%;
+            padding: 10px; font-size: 14px; 
+            white-space: nowrap; overflow: hidden;
+            text-overflow: ellipsis;
+        }
+        #slide .pointer{
+            position: absolute; bottom: 0; left: 0; width: 12.5%;
+            height: 2px; background-color: #e13430;
+            -webkit-transition: all .2s;
+            transition:all .2s;
+        }
+        section{
+            margin-top: 8px; border-top: 1px solid #ddd;
+            border-bottom: 1px solid #ddd;
+            background-color: #fff;
+        }
+        .content{
+            padding: 0 10px 15px;
+            display: -webkit-box;
+            display: -webkit-flex;
+            display: flex;
+        }
+        .content li{
+            padding-right: 10px; 
+            -webkit-box-flex: 1; 
+            -webkit-flex: 1;
+            flex: 1;
+        }
+        .content li:last-child{
+            padding-right: 0;
+        }
+        .content li img{
+            width: 100%; display: block;
+        }
+        .content li label{
+            font-size: 14px; height: 3em; overflow: hidden;
+            margin-top: 4px; color: #626262; line-height: 1.5;
+        }
+        section header{
+            padding-top: 15px; overflow: hidden; padding-bottom: 10px;
+        }
+        section header span{
+            float: left; font-size: 16px; border-left: 4px solid #f43530;
+            margin-left: 10px; padding-left: 10px;
+        }
+        section header em{
+            float: right; font-size: 14px; color: #e13733; margin-right: 10px;
+        }
+        .content li div{
+            position: relative;
+        }
+        .content li .mask{
+            position: absolute; z-index: 2; top: 0;
+            width: 100%; height: 100%; opacity: 0;
+            background-color: rgba(0,0,0,.4);
+        }
+        .content li.focus .mask{
+            opacity: 1;
+        }
+        #loading{
+            position: absolute; width: 100%; 
+            top: 180px; text-align: center;
+            background: url(../image/ic_ptr_loading.png) no-repeat center top;
+            -webkit-background-size: 25px;
+            background-size: 25px;
+        }
+        #loading:before{
+            display:inline-block; content: '努力加载中...';
+            font-size: 12px; color: #888;
+            padding-top: 30px;
+        }
+	</style>
+</head>
+<body>
+<div id="loading"></div>
+<div id='slide' class='swipe'>
+    <div class='swipe-wrap'>
+        <div>
+            <img data-echo="../image/slide/slide1.jpg" src="../image/sw_default_bg.jpg" />
+            <label>推广：新一季撕名牌大战开启</label>
+        </div>
+        <div>
+            <img data-echo="../image/slide/slide2.jpg" src="../image/sw_default_bg.jpg" />
+            <label>2015周华健全球巡演 郑州站 选歌抢票</label>
+        </div>
+        <div>
+            <img data-echo="../image/slide/slide3.jpg" src="../image/sw_default_bg.jpg" />
+            <label>多尔衮统一中国为何我会失败，六大弊政之谜又是什么？</label>
+        </div>
+        <div>
+            <img data-echo="../image/slide/slide4.jpg" src="../image/sw_default_bg.jpg" />
+            <label>最新更新，全本完结，不容错过！</label>
+        </div>
+        <div>
+            <img data-echo="../image/slide/slide1.jpg" src="../image/sw_default_bg.jpg" />
+            <label>推广：新一季撕名牌大战开启</label>
+        </div>
+        <div>
+            <img data-echo="../image/slide/slide2.jpg" src="../image/sw_default_bg.jpg" />
+            <label>2015周华健全球巡演 郑州站 选歌抢票</label>
+        </div>
+        <div>
+            <img data-echo="../image/slide/slide3.jpg" src="../image/sw_default_bg.jpg" />
+            <label>多尔衮统一中国为何我会失败，六大弊政之谜又是什么？</label>
+        </div>
+        <div>
+            <img data-echo="../image/slide/slide4.jpg" src="../image/sw_default_bg.jpg" />
+            <label>最新更新，全本完结，不容错过！</label>
+        </div>
+    </div>
+    <em class="pointer"></em>
+</div>
+<!--doT template-->
+<script id="template" type="text/x-dot-template">
+{{ for(var k in it) { }}
+    <section>
+        <header>
+            <span>{{=it[k][0].type}}</span><em>更多&gt;</em>
+        </header>
+        <ul class="content">
+        {{ for(var i in it[k]) { }}
+            {{? it[k][i].type == '音乐' }}
+            <li tapmode="focus" onclick="openMusicDetail();">
+            {{??}}
+            <li tapmode="focus" onclick="openDiscDetail();">
+            {{?}}
+                <div>
+                    <img data-echo="{{=it[k][i].thumbnail.url}}" src="../image/recommend_defaultbg.jpg" />
+                    <div class="mask"></div>
+                </div>
+                <label>{{=it[k][i].title}}</label>
+            </li>
+        {{ } }}
+        </ul>
+    </section>
+{{ } }}
+</script>
+
+<div id="disc_content">
+</div>
+
+<!--  
+<section>
+    <header>
+        <span>新闻</span><em>更多&gt;</em>
+    </header>
+    <ul class="content">
+        <li tapmode="focus" onclick="openDiscDetail();">
+            <div>
+                <img data-echo="../image/pic/news_p1.jpg" src="../image/recommend_defaultbg.jpg" />
+                <div class="mask"></div>
+            </div>
+            <label>苏州24岁工程师为境外刺</label>
+        </li>
+        <li tapmode="focus" onclick="openDiscDetail();">
+            <div>
+                <img data-echo="../image/pic/news_p1.jpg" src="../image/recommend_defaultbg.jpg" />
+                <div class="mask"></div>
+            </div>
+            <label>苏州24岁工程师为境外刺探军情被捕</label>
+        </li>
+        <li tapmode="focus" onclick="openDiscDetail();">
+            <div>
+                <img data-echo="../image/pic/news_p1.jpg" src="../image/recommend_defaultbg.jpg" />
+                <div class="mask"></div>
+            </div>
+            <label>苏州24岁工程师</label>
+        </li>
+    </ul>
+</section>
+ -->
+
+</body>
+<script type="text/javascript" src="../script/api-lite.js"></script>
+<script type="text/javascript" src="../script/zepto.js"></script>
+<script type="text/javascript" src="../script/swipe.js"></script>
+<script type="text/javascript" src="../script/echo.js"></script>
+<script type="text/javascript" src="../script/doT.js"></script>
+<script type="text/javascript">
+
+    window.mySwipe = new Swipe(document.getElementById('slide'), {
+        auto: 5000,
+        continuous: true,
+        disableScroll: true,
+        stopPropagation: true,
+        callback: function(index, elem) {
+            var $pointer = $('#slide .pointer');
+            var left = 12.5*index;
+            $pointer.css('left', left+'%');
+        },
+        transitionEnd: function(index, elem) {
+            
+        }
+    });
+
+    //发现详情
+    function openDiscDetail(){
+        //用于整体关闭多个frame
+        api.openWin({
+            name: 'win_disc_detail',
+            url: 'win_disc_detail.html',
+            delay: 300,
+            animation: {
+                type: 'movein',
+                subType: 'from_right'
+            }
+        });
+    }
+    //音乐详情
+    function openMusicDetail(){
+        api.openWin({
+            name: 'win_music_detail',
+            url: 'win_music_detail.html',
+            animation: {
+                type: 'movein',
+                subType: 'from_right'
+            }
+        });
+    }
+
+    apiready = function(){
+        // api.showProgress({
+        //     title: '努力加载中...',
+        //     text: '',
+        //     modal: true
+        // });
+        
+        var model = api.require('model');
+        model.config({
+            appKey: '504531E6-7C61-3EF7-61FE-0B92A21FDED1',
+            host: 'https://d.apicloud.com'
+        });
+        var query = api.require('query');
+        query.createQuery(function(ret, err) {
+            if (ret && ret.qid) {
+                var queryId = ret.qid;
+                model.findAll({
+                    class: "discover",
+                    qid: queryId
+                }, function(ret, err) {
+                    if (ret) {
+                        // alert(JSON.stringify(ret));
+
+                        var data = {
+                            type1: [],  //新闻
+                            type2: [],  //北京
+                            type3: []   //音乐
+                        };
+                        for(var i=0, len=ret.length; i<len; i++){
+                            if(ret[i].type == '新闻'){
+                                data.type1.push(ret[i]);
+                            }
+                            if(ret[i].type == '北京'){
+                                data.type2.push(ret[i]);
+                            }
+                            if(ret[i].type == '音乐'){
+                                data.type3.push(ret[i]);
+                            }
+                        }
+
+                        //假数据
+                        data.type4 = data.type1;
+                        data.type5 = data.type2;
+                        data.type6 = data.type3;
+                        data.type7 = data.type1;
+                        data.type8 = data.type2;
+                        data.type9 = data.type3;
+
+                        // alert(JSON.stringify(data));
+
+                        //渲染模板
+                        var template = document.getElementById('template');
+                        var disc_content = document.getElementById('disc_content');
+                        var pagefn = doT.template(template.text);
+                        disc_content.innerHTML = pagefn(data);
+
+                        //重新解析tapmode
+                        api.parseTapmode();
+
+                        $('#loading').hide();
+                        // api.hideProgress();
+
+                        //lazyload
+                        echo.init({
+                          offset: 100,
+                          throttle: 250,
+                          callback: function (element, op) {
+                          }
+                        });
+
+                    }
+                });
+            }
+        });
+
+        
+        // api.addEventListener({
+        //     name: 'scrolltobottom'
+        // }, function(ret, err){
+
+        // });
+
+    };
+</script>
+</html>

@@ -1,0 +1,63 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+    <title>蜻蜓FM</title>
+    <link rel="stylesheet" type="text/css" href="../css/api.css" />
+    <style>
+        header{
+            height: 56px; line-height: 56px;
+            background-color: #e13430;
+            display: -webkit-box;
+            display: -webkit-flex;
+            display: flex;
+        }
+        .back{
+            display:inline-block; width: 53px; height: 100%;
+            background:url(../image/navi_back.png) no-repeat left center;
+            -webkit-background-size: contain;
+            background-size: contain;
+        }
+        .share{
+            display:inline-block; width: 50px; height: 100%;
+            background:url(../image/ic_play_share.png) no-repeat center;
+            -webkit-background-size: 25px;
+            background-size: 25px;
+        }
+        h1{
+            font-size: 16px; color: #fff; text-align: center;
+            -webkit-box-flex: 1; 
+            -webkit-flex: 1;
+            flex: 1;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <i class="back" tapmode onclick="api.closeWin();"></i>
+        <h1>早安音乐</h1>
+        <i class="share"></i>
+    </header>
+</body>
+<script type="text/javascript" src="../script/api.js"></script>
+<script type="text/javascript">
+    apiready = function(){
+        var header = document.querySelector('header');
+        $api.fixIos7Bar(header);
+
+        var headerPos = $api.offset(header);
+        api.openFrame({
+            name: 'frm_music_detail',
+            url: 'frm_music_detail.html',
+            bounces: false,
+            rect: {
+                x: 0,
+                y: headerPos.h,
+                w: 'auto',
+                h: 'auto'
+            }
+        });
+    };
+</script>
+</html>

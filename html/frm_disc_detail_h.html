@@ -1,0 +1,43 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+    <title>蜻蜓FM</title>
+    <link rel="stylesheet" type="text/css" href="../css/api.css" />
+	<style>
+		html,body{background: transparent;}
+        header{
+            height: 56px; line-height: 56px;
+            display: -webkit-box;
+            display: -webkit-flex;
+            display: flex;
+        }
+        .back{
+            width: 53px; height: 100%;
+            background:url(../image/navi_back.png) no-repeat left center;
+            -webkit-background-size: contain;
+            background-size: contain;
+        }
+        h2{
+            font-size: 16px; color: #fff; text-align: center;
+            text-indent: -53px;
+            -webkit-box-flex: 1; 
+            -webkit-flex: 1;
+            flex: 1;
+        }
+	</style>
+</head>
+<body>
+    <header>
+        <div class="back" tapmode onclick="api.closeWin({name: 'win_disc_detail'});"></div>
+        <h2>滚动头条</h2>
+    </header>
+</body>
+<script type="text/javascript" src="../script/api.js"></script>
+<script type="text/javascript">
+    apiready = function(){
+		
+    };
+</script>
+</html>

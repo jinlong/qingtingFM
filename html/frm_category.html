@@ -1,0 +1,98 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+    <title>蜻蜓FM</title>
+    <link rel="stylesheet" type="text/css" href="../css/api.css" />
+	<style>
+		html, #wrap{
+			background-color: #fafafa;
+		}
+		html, body{
+			overflow: hidden; height: 100%; min-height: 100%;
+			background-color: transparent;
+		}
+		#wrap{
+			min-height: 100%;
+			-webkit-transition: all .3s;
+			transition:all .3s;
+			-webkit-transform: translateY(-100%);
+			transform: translateY(-100%);
+		}
+		#wrap.in{
+			-webkit-transform: translateY(0%);
+			transform: translateY(0%);
+		}
+		ul{
+			overflow: hidden; padding: 10px 0;
+		}
+		ul li{
+			width: 25%; float: left; text-align: center;
+			margin-bottom: 16px;
+		}
+		ul li div{
+			color: #606060; font-size: 14px;
+			padding: 6px 0; min-width: 4.6em; border: 1px solid #ebebeb;
+			border-radius: 10px; margin: 0 10px;
+			background-color: #fff;
+		}
+		ul li:first-child div{
+			color: #e13430; border: none; background-color: transparent;
+		}
+	</style>
+</head>
+<body>
+    <div id="wrap">
+    	<ul>
+    		<li><div>精选</div></li>
+    		<li><div>电台</div></li>
+    		<li><div>北京</div></li>
+    		<li><div>小说</div></li>
+    		<li><div>音乐</div></li>
+    		<li><div>读报</div></li>
+    		<li><div>新闻</div></li>
+    		<li><div>相声小品</div></li>
+    		<li><div>精选</div></li>
+    		<li><div>电台</div></li>
+    		<li><div>北京</div></li>
+    		<li><div>小说</div></li>
+    		<li><div>音乐</div></li>
+    		<li><div>读报</div></li>
+    		<li><div>新闻</div></li>
+    		<li><div>相声小品</div></li>
+    		<li><div>精选</div></li>
+    		<li><div>电台</div></li>
+    		<li><div>北京</div></li>
+    		<li><div>小说</div></li>
+    		<li><div>音乐</div></li>
+    		<li><div>读报</div></li>
+    		<li><div>新闻</div></li>
+    		<li><div>相声小品</div></li>
+    		<li><div>精选</div></li>
+    		<li><div>电台</div></li>
+    		<li><div>北京</div></li>
+    		<li><div>小说</div></li>
+    		<li><div>音乐</div></li>
+    		<li><div>读报</div></li>
+    		<li><div>新闻</div></li>
+    		<li><div>相声小品</div></li>
+    		<li><div>新闻</div></li>
+    	</ul>
+    </div>
+</body>
+<script type="text/javascript" src="../script/api.js"></script>
+<script type="text/javascript">
+	function slideUp(){
+		var wrap = $api.byId('wrap');
+		$api.removeCls(wrap, 'in');
+		setTimeout(function(){
+			api.closeFrame();
+		},350);
+	}
+    apiready = function(){
+		var wrap = $api.byId('wrap');
+		$api.addCls(wrap, 'in');
+    };
+</script>
+</html>

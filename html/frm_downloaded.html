@@ -1,0 +1,60 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+    <title>蜻蜓FM</title>
+    <link rel="stylesheet" type="text/css" href="../css/api.css" />
+	<style>
+		html,body{height: 100%; background-color: #eee;}
+        ul{background-color: #fff;}
+        ul li{
+            padding: 10px; position: relative;
+            border-bottom: 1px solid #dedede;
+        }
+        ul li.active{
+            background-color: #eee;
+        }
+        .storage{
+            position: absolute; bottom: 0; width: 100%;
+            color: #787878; font-size: 12px; text-align: center;
+        }
+        .del{
+            display: inline-block; width: 25px; height: 25px;
+            right: 20px; position: absolute; top: 24%;
+            background:url(../image/ic_item_delete.png) no-repeat;
+            -webkit-background-size: contain;
+            background-size: contain;
+        }
+        .del.active{
+            background:url(../image/ic_item_delete_s.png) no-repeat;
+            -webkit-background-size: contain;
+            background-size: contain;
+        }
+        ul li p{
+            font-size: 16px; color: #272930; margin-bottom: 4px;
+        }
+        ul li span{
+            font-size: 12px; color: #787878;
+        }
+	</style>
+</head>
+<body>
+    <ul>
+        <li tapmode="active">
+            <div>
+                <p>以前的下载</p>
+                <span>0个文件</span>
+            </div>
+            <i tapmode="active" class="del"></i>
+        </li>
+    </ul>
+    <p class="storage">存储位置：存储卡1，可以空间24.8G</p>
+</body>
+<script type="text/javascript" src="../script/api.js"></script>
+<script type="text/javascript">
+    apiready = function(){
+
+    };
+</script>
+</html>

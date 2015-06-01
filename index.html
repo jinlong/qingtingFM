@@ -1,0 +1,592 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+    <title>蜻蜓FM</title>
+    <link rel="stylesheet" type="text/css" href="./css/api.css" />
+    <style type="text/css">
+        html,body,#wrap{height: 100%;}
+        #wrap{
+            display: -webkit-box;
+            display: -webkit-flex;
+            display: flex;
+            -webkit-box-orient: vertical;
+            -webkit-flex-flow: column;
+            flex-flow: column;
+        }
+        #header{
+            height: 56px; background-color: #e13430;
+            display: -webkit-box;
+            display: -webkit-flex;
+            display: flex;
+        }
+        #header div{
+            text-align: center;
+            -webkit-box-flex: 1; 
+            -webkit-flex: 1;
+            flex: 1;
+        }
+        #header div span{
+            font-size: 12px; color: #fff; 
+            display: inline-block; padding-top: 36px; 
+            background-repeat: no-repeat;
+            background-position: center 6px;
+            -webkit-background-size: contain;
+            background-size: contain;
+        }
+        #header .my span{
+            background-image: url(image/tab_personal.png);
+        }
+        #header .discover span{
+            background-image: url(image/tab_discovery.png);
+        }
+        #header .download span{
+            background-image: url(image/tab_download.png);
+        }
+        #header .search span{
+            background-image: url(image/tab_search.png);
+        }
+        #header .my.focus span, #header .my.active span{
+            background-image: url(image/tab_personal_s.png);
+        }
+        #header .discover.focus span, #header .discover.active span{
+            background-image: url(image/tab_discovery_s.png);
+        }
+        #header .download.focus span, #header .download.active span{
+            background-image: url(image/tab_download_s.png);
+        }
+        #header .search.focus span, #header .search.active span{
+            background-image: url(image/tab_search_s.png);
+        }
+        
+        #subNav{}
+        #subNav .discover{
+            overflow: hidden; height: 45px; 
+            position: relative; 
+        }
+        #subNav .hide{
+            display: none;
+        }
+        #subNav .discover .nav{
+            height: 45px; line-height: 45px;
+            -webkit-box-sizing: border-box;
+            box-sizing: border-box;
+            position: absolute;
+            z-index: 1;
+            -webkit-transform: translateZ(0);
+            transform: translateZ(0);
+            display: block; white-space: nowrap; padding: 0 10px;
+        }
+        #subNav .discover .nav span{
+            color: #8c8c8c; font-size: 13px; padding: 0 10px;
+        }
+        #subNav .discover .nav span.active{
+            color: #e34440;
+        }
+        #subNav .discover em{
+            width: 45px; height: 1px; position: absolute; bottom: 0;
+            border-bottom: 2px solid #e13430; left: 10px;
+            -webkit-transition: all .3s;
+            transition: all .3s;
+        }
+        #subNav .discover .btn{
+            display: inline-block; width: 56px; 
+            height: 100%; 
+            position: absolute; right: 0; top: 0; text-align: center;
+            z-index: 10;
+            background:#fff url(image/line_category_collapse.png) no-repeat left center;
+            -webkit-background-size: contain;
+            background-size: contain;
+        }
+        #subNav .discover .arr{
+            display: inline-block; width: 26px; height: 18px;
+            background:url(image/ic_collapse_category.png) no-repeat center;
+            -webkit-background-size: 13px 9px;
+            background-size: 13px 9px;
+            border:1px solid #c6c6c6;
+            border-radius: 8px; margin-top: 10px;
+        }
+        #subNav .discover .category{
+            position: absolute; background-color: #fff; width: 100%;
+            border-bottom: 1px solid #dedede; height: 44px; z-index: 20;
+            overflow: hidden; opacity: 0; display: none;
+            -webkit-transition: all .3s;
+            transition: all .3s;
+        }
+        #subNav .discover .category.fadeIn{
+            opacity: 1;
+        }
+        #subNav .discover .category h3{
+            margin-left: 20px; line-height: 44px;
+            font-size: 14px; color: #8d8d8d; float: left; width: 5em;
+        }
+        #subNav .discover .category .order{
+            font-size: 12px; color: #e13632; padding: 4px 10px; line-height: 1;
+            border-radius: 10px; border: 1px solid #f6c2c0;
+            margin-top: 10px; margin-right: 10px;
+        }
+        #subNav .discover .category span{
+            float: right;
+        }
+
+        #subNav .discover .category .btn{
+            background-image: none; position: static;
+        }
+        #subNav .discover .category .arr{
+            background-image: none; line-height: 1;
+        }
+        #subNav .discover .category .arr:before{
+            display: inline-block; content: '';
+            width: 13px; height: 9px;
+            background:url(image/ic_collapse_category.png) no-repeat center;
+            -webkit-background-size: contain;
+            background-size: contain;
+            -webkit-transition: all .3s;
+            transition: all .3s;
+            -webkit-transform: rotate(0deg);
+            transform: rotate(0deg);
+        }
+        #subNav .discover .category .arr.up:before{
+            -webkit-transform: rotate(180deg);
+            transform: rotate(180deg);
+        }
+        #subNav .download{
+            position: relative; height: 44px; line-height: 44px;
+            border-bottom: 1px solid #dedede;
+        }
+        #subNav .download span{
+            display:inline-block; width: 50%; text-align: center;
+            position: relative; font-size: 13px; color: #272930;
+        }
+        #subNav .download .active, #subNav .download .focus{
+            color: #e13632;
+        }
+        #subNav .download em{
+            position: absolute; bottom: -1px; left: 0;
+            -webkit-transition: all .2s;
+            transition: all .2s;
+            width: 50%; height: 1px; border-bottom: 2px solid #e13430;
+        }
+        #subNav .download.toggle em{
+            left: 50%;
+        }
+        #subNav .download span.first:after{
+            content: ""; display: inline-block; height: 14px; width: 1px;
+            border-right: 1px solid #ddd;
+            position: absolute; right: 0; top: 50%; margin-top: -7px;
+        }
+        #subNav .search{
+            padding: 10px 0 0;
+        }
+        #subNav .search span{
+            color: #8e8e93; position: relative;
+            background: url(image/search_zoom.png) no-repeat 16px center;
+            -webkit-background-size: 19px 19px;
+            background-size: 19px 19px;
+            margin: 0 auto 10px; width: 90%; display: block; font-size: 13px;
+            background-color: #e0e0e0; border-radius: 6px; 
+            padding: 10px 20px 10px 40px;
+            -webkit-box-sizing: border-box;
+            box-sizing: border-box;
+        }
+        #subNav .search .record{
+            position: absolute; right: 20px; top: 8px;
+            display: inline-block; width: 12px; height: 18px;
+            background:url(image/voice_logo_microphone.png) no-repeat;
+            -webkit-background-size: contain;
+            background-size: contain;
+        }
+        #subNav .search .list{
+            padding:10px 20px; border-top: 1px solid #ddd; overflow: hidden;
+        }
+        #subNav .search .list em{
+            font-size: 13px; color: #97989a;
+        }
+        #subNav .search .rank{
+            float: left;
+        }
+        #subNav .search .hot{
+            float: right;
+        }
+        #main{
+            -webkit-box-flex: 1; 
+            -webkit-flex: 1;
+            flex: 1;
+        }
+        #miniplayer{
+            height: 56px;
+        }
+    </style>
+</head>
+<body>
+    <div id="wrap">
+        <header>
+            <div id="header">
+                <div class="my" tapmode="focus" onclick="openTab('my')"><span>我的</span></div>
+                <div class="discover active" tapmode="focus" onclick="openTab('discover')"><span>发现</span></div>
+                <div class="download" tapmode="focus" onclick="openTab('download')"><span>下载</span></div>
+                <div class="search" tapmode="focus" onclick="openTab('search')"><span>搜索</span></div>
+            </div>
+            <div id="subNav">
+                <div class="discover">
+                    <span class="nav">
+                        <span class="active" tapmode onclick="switchDiscFrm(this)">精选</span>
+                        <span tapmode onclick="switchDiscFrm(this)">电台</span>
+                        <span tapmode onclick="switchDiscFrm(this)">北京</span>
+                        <span tapmode onclick="switchDiscFrm(this)">小说</span>
+                        <span tapmode onclick="switchDiscFrm(this)">音乐</span>
+                        <span tapmode onclick="switchDiscFrm(this)">读报</span>
+                        <span tapmode onclick="switchDiscFrm(this)">新闻</span>
+                        <span tapmode onclick="switchDiscFrm(this)">相声小品</span>
+                        <span tapmode onclick="switchDiscFrm(this)">脱口秀</span>
+                        <span tapmode onclick="switchDiscFrm(this)">情感</span>
+                        <span tapmode onclick="switchDiscFrm(this)">健康</span>
+                        <span tapmode onclick="switchDiscFrm(this)">军事</span>
+                        <span tapmode onclick="switchDiscFrm(this)">历史</span>
+                        <span tapmode onclick="switchDiscFrm(this)">儿童</span>
+                        <span tapmode onclick="switchDiscFrm(this)">娱乐</span>
+                    </span>
+                    <em></em>
+                    <span class="btn" id="expandMore" tapmode onclick="expandMore()"><i class="arr"></i></span>
+                    <div class="category">
+                        <h3>所有分类</h3>
+                        <span class="btn" tapmode onclick="foldMore()"><i class="arr"></i></span>
+                        <span class="order">排序</span>
+                    </div>
+                </div>
+                <div class="download hide">
+                    <span tapmode="focus" onclick="toggleDownloadCon(this);" class="first active">已下载</span><span tapmode="focus" onclick="toggleDownloadCon(this);">正在下载</span>
+                    <em></em>
+                </div>
+                <div class="search hide">
+                    <span tapmode onclick="goSearch()">搜索电台、专辑、节目<i class="record"></i></span>
+                    <div class="list">
+                        <em class="rank">今日热搜词排名</em>
+                        <em class="hot">搜索热度</em>
+                    </div>
+                </div>
+            </div>
+        </header>
+        <div id="main">
+            <!--占位-->
+        </div>
+        <div id="miniplayer">
+            <!--占位-->
+        </div>
+    </div>
+</body>
+<script type="text/javascript" src="./script/api-lite.js"></script>
+<script type="text/javascript" src="./script/zepto.js"></script>
+<script type="text/javascript" src="./script/iscroll-lite.js"></script>
+<script type="text/javascript">
+    var myScroll;
+
+    //切换下载tab
+    function toggleDownloadTab(index){
+        index = parseInt(index, 10);
+        if(index){
+            $('#subNav .download').addClass('toggle');
+        }else{
+            $('#subNav .download').removeClass('toggle');
+        }
+        $('#subNav .download').find('.active').removeClass('active');
+        $('#subNav .download').find('span').eq(index).addClass('active');
+    }
+    //切换下载内容
+    function toggleDownloadCon(it){
+        var index = $(it).index();
+        toggleDownloadTab(index);
+        api.setFrameGroupIndex({
+            name: 'frmg_download',
+            index: index,
+            scroll: true
+        });
+    }
+    //隐藏所有frame
+    function hideFrames(){
+        api.setFrameAttr({
+            name: 'frm_my',
+            hidden: true
+        });
+        api.setFrameAttr({
+            name: 'frm_search',
+            hidden: true
+        });
+        api.setFrameGroupAttr({
+            name: 'frmg_discover',
+            hidden: true
+        });
+        api.setFrameGroupAttr({
+            name: 'frmg_download',
+            hidden: true
+        });
+    }
+    //发现子菜单选中状态
+    function activeDiscNav(index){
+        $('#subNav .discover').find('span.active').removeClass('active');
+        $('#subNav .discover .nav span').eq(index).addClass('active');
+    }
+    //点菜单切换发现frameGroup
+    function switchDiscFrm(it){
+        var index = $(it).index();
+        api.setFrameGroupIndex({
+            name: 'frmg_discover',
+            index: index
+            // ,scroll: true
+        });
+    }
+    function openTab(it){
+        var $header = $('#header'),
+            $subNav = $('#subNav');
+        //切换导航
+        $header.find('.active').removeClass('active');
+        $header.find('.'+it).addClass('active');
+        //切换子导航
+        $('#subNav>div').addClass('hide');
+        if($subNav.find('.'+it)[0]){
+            $subNav.find('.'+it).removeClass('hide');
+        }
+
+        hideFrames();
+
+        var mainPos, mainHeight, mainTop;
+        switch(it){
+            case 'my':
+                mainPos = $('#main').offset();
+                mainHeight = mainPos.height;
+                mainTop = mainPos.top;
+                api.openFrame({
+                    name: 'frm_my',
+                    url: 'html/frm_my.html',
+                    bounces: false,
+                    rect: {
+                        x: 0,
+                        y: mainTop,
+                        w: 'auto',
+                        h: mainHeight
+                    }
+                });
+                break;
+            case 'discover':
+                mainPos = $('#main').offset();
+                mainHeight = mainPos.height;
+                mainTop = mainPos.top;
+                var framesArr = [{
+                    name: 'frm_discover', 
+                    url: 'html/frm_discover.html',
+                    bounces: false
+                },{
+                    name: 'frm_discover1', 
+                    url: 'html/frm_discover1.html',
+                    bounces: false
+                }];
+
+                for(var i=0; i<13; i++){
+                    framesArr.push({
+                        name: 'frm_discover', 
+                        url: 'html/frm_discover.html',
+                        bounces: false
+                    });
+                }
+
+                api.openFrameGroup({
+                    name: 'frmg_discover',
+                    scrollEnabled: true,
+                    rect: {x:0, y:mainTop, w:'auto', h:mainHeight},
+                    index: 0,
+                    frames: framesArr
+                }, function(ret, err){
+                    var $discoverNav = $('#subNav .discover .nav span');
+                    var index = ret.index;
+                    var left = $discoverNav.eq(index).position().left;
+                    // if(index >= 2){
+                        var x = -left;
+                        //移动菜单
+                        myScroll.scrollTo(x, 0, 300);
+                        
+                    // }else{
+                        //移动指示器
+                        // var $indicator = $('#subNav .discover em');
+                        // $indicator.css({
+                        //     left: left +'px'
+                        // })
+                    // }
+                    activeDiscNav(index);
+
+                });
+                break;
+            case 'download':
+                mainPos = $('#main').offset();
+                mainHeight = mainPos.height;
+                mainTop = mainPos.top;
+                api.openFrameGroup({
+                    name: 'frmg_download',
+                    scrollEnabled: true,
+                    rect: {x:0, y:mainTop, w:'auto', h:mainHeight},
+                    index: 0,
+                    frames: [{
+                        name: 'frm_downloaded', 
+                        url: 'html/frm_downloaded.html',
+                        bounces: false
+                    },{
+                        name: 'frm_downloading', 
+                        url: 'html/frm_downloading.html',
+                        bounces: false
+                    }]
+                }, function(ret, err){
+                    var index = ret.index;
+                    toggleDownloadTab(index);
+                });
+                break;
+            case 'search':
+                mainPos = $('#main').offset();
+                mainHeight = mainPos.height;
+                mainTop = mainPos.top;
+                api.openFrame({
+                    name: 'frm_search',
+                    url: 'html/frm_search.html',
+                    bounces: false,
+                    rect: {
+                        x: 0,
+                        y: mainTop,
+                        w: 'auto',
+                        h: mainHeight
+                    }
+                });
+                break;
+        }
+    }
+    //打开引导页
+    function openGuide(){
+        setTimeout(function(){
+            api.openFrame({
+                name: 'frm_guide',
+                url: 'html/frm_guide.html',
+                bounces: false,
+                rect: {
+                    x: 0,
+                    y: 0,
+                    w: 'auto',
+                    h: 'auto'
+                }
+            });
+        },100);
+    }
+    //打开mini播放器
+    function openMiniPlayer(){
+        var y = api.winHeight - 55;
+        api.openFrame({
+            name: 'frm_miniplayer',
+            url: 'html/frm_miniplayer.html',
+            bounces: false,
+            rect: {
+                x: 0,
+                y: y,
+                w: 'auto',
+                h: 55
+            }
+        });
+    }
+    //展开所有分类
+    function expandMore(){
+        var $category = $('#subNav .category');
+        var $arr = $category.find('i.arr');
+        $category.show();
+        setTimeout(function(){
+            $category.addClass('fadeIn');
+            $arr.addClass('up');
+        },50);
+        var y = $('header').height();
+        var h = $('#main').height();
+        api.openFrame({
+            name: 'frm_category',
+            url: 'html/frm_category.html',
+            bounces: false,
+            bgColor: 'rgba(0,0,0,0)',
+            rect: {
+                x: 0,
+                y: y,
+                w: 'auto',
+                h: h
+            }
+        });
+    }
+    //收起所有分类
+    function foldMore(){
+        var $category = $('#subNav .category');
+        var $arr = $category.find('i.arr');
+        $arr.removeClass('up');
+        $category.removeClass('fadeIn');
+        setTimeout(function(){
+           $category.hide(); 
+        },300);
+        //收起所有分类frame
+        api.execScript({
+            frameName: 'frm_category',
+            script: 'slideUp()'
+        });
+    }
+
+    //打开搜索框
+    function goSearch(){
+        api.openWin({
+            name: 'win_search',
+            url: 'html/win_search.html',
+            animation: {
+                type: 'fade'
+            }
+        });
+    }
+
+    apiready = function(){
+        //发现导航
+        myScroll = new IScroll('#subNav .discover', {
+            bounce: false,
+            disableMouse: true,
+            disablePointer: true,
+            eventPassthrough: true,
+            scrollX: true,
+            scrollY: false
+        });
+
+        var header = document.querySelector('#header');
+        $api.fixIos7Bar(header);
+        api.setStatusBarStyle({
+            style: 'light'
+        });
+
+        var showGuide = $api.getStorage('showGuide');
+        //打开引导页
+        if(!showGuide){
+            openGuide();
+        }
+
+        openTab('discover');
+        openMiniPlayer();
+
+        api.addEventListener({
+            name: 'keyback'
+        }, function(ret, err){
+            api.openFrame({
+                name: 'frm_exit',
+                url: 'html/frm_exit.html',
+                bounces: false,
+                bgColor: 'rgba(0,0,0,0.6)',
+                rect: {
+                    x: 0,
+                    y: 0,
+                    w: 'auto',
+                    h: 'auto'
+                }
+            });
+        });
+
+        //移除启动页
+        setTimeout(function(){
+            api.removeLaunchView();
+        }, 400);
+
+    };
+</script>
+</html>

@@ -1,0 +1,145 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+    <title>蜻蜓FM</title>
+    <link rel="stylesheet" type="text/css" href="../css/api.css" />
+	<style>
+        html,body{background-color: #eee;}
+		#poster img{width: 100%; display: block;}
+        #desc{
+            background-color: #fff; border-bottom: 1px solid #dedede;
+            margin-bottom: 10px; font-size: 14px; color: #4b4b4b;
+            padding: 14px; line-height: 1.5;
+        }
+        ul{
+            background-color: #fff;
+        }
+        ul li{
+            overflow: hidden; padding: 14px;
+            border-bottom: 1px solid #dedede;
+        }
+        ul li.focus{
+            background-color: #eee;
+        }
+        ul li img{
+            float: left; width: 24%;
+        }
+        ul li .content{
+            float: left; width: 76%; padding-left: 10px;
+            -webkit-box-sizing: border-box;
+            box-sizing: border-box;
+        }
+        ul .content .intro{
+            font-size: 14px; color: #8d8d8d; white-space: nowrap;
+            overflow: hidden; text-overflow: ellipsis;
+            padding: 10px 0;
+        }
+        ul li h3{
+            font-size: 15px; color: #272930;
+        }
+        ul .content p{
+            font-size: 12px; color: #8d8d8d;
+        }
+	</style>
+</head>
+<body>
+<!--doT template-->
+<script id="template" type="text/x-dot-template">
+    <div id="poster">
+        <img src="{{=it.poster.url}}">
+    </div>
+    <div id="desc">
+        {{=it.overview}}
+    </div>
+    <ul>
+    {{ for(var i in it.list) { }}
+        <li tapmode="focus">
+            <img src="{{=it.list[i].pic.url}}">
+            <div class="content">
+                <h3>{{=it.list[i].title}}</h3>
+                <div class="intro">
+                    {{=it.list[i].intro}}
+                </div>
+                <p>
+                    {{=it.list[i].date}}
+                </p>
+            </div>
+        </li>
+    {{ } }}
+    </ul>
+</script>
+
+<div id="content"></div>
+
+    <!-- <div id="poster">
+        <img src="../image/pic/music_detail.jpg">
+    </div>
+    <div id="desc">
+        每天清晨一醒来，好音乐给你一天好心情。尽情挑选自己爱的音乐节目，总有一款适合你。
+    </div> -->
+    <!-- <ul>
+        <li tapmode="focus">
+            <img src="../image/pic/music_pic.jpg">
+            <div class="content">
+                <h3>把耳朵叫醒</h3>
+                <div class="intro">
+                    适合清晨收听的轻松小调，把耳朵叫醒...
+                </div>
+                <p>
+                    05月08日
+                </p>
+            </div>
+        </li>
+    </ul> -->
+</body>
+<script type="text/javascript" src="../script/api-lite.js"></script>
+<script type="text/javascript" src="../script/zepto.js"></script>
+<script type="text/javascript" src="../script/doT.js"></script>
+<script type="text/javascript" src="../script/APICloud-rest-SHA1.js"></script>
+
+<script type="text/javascript">
+    function getData(){
+        var appid = 'A6987231827714', appkey = '504531E6-7C61-3EF7-61FE-0B92A21FDED1';
+        var client = new Resource(appid, appkey);
+        var Model = client.Factory("music");
+        Model.query({
+          "filter": {
+            "include": "list"
+          }
+        },function(ret,err){
+            // alert(JSON.stringify(ret));
+
+            var data = ret[0];
+
+            //渲染模板
+            var template = document.getElementById('template');
+            var content = document.getElementById('content');
+            var pagefn = doT.template(template.text);
+            content.innerHTML = pagefn(data);
+
+            //重新解析tapmode
+            api.parseTapmode();
+
+            //关闭下拉刷新
+            api.refreshHeaderLoadDone();
+
+        })
+    }
+    apiready = function(){
+        getData();
+
+		api.setRefreshHeaderInfo({
+            visible: true,
+            loadingImg: 'widget://image/ic_ptr_pull.png',
+            bgColor: '#eee',
+            textColor: '#959595',
+            textDown: '下拉刷新',
+            textUp: '释放刷新'
+        }, function(ret, err){
+            getData();
+        });
+    };
+</script>
+</html>

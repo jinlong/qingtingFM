@@ -1,0 +1,21 @@
+ <widget id="A6987231827714"  version="0.0.1">
+    <name>蜻蜓FM</name>
+    <description>
+        蜻蜓FM
+    </description>
+    <author email="jinlong.zhang@apicloud.com" href="http://www.apicloud.com">
+        Alon
+    </author>
+    <content src="index.html" />
+    <access origin="*" />
+    <preference name="pageBounce" value="false"/>
+	<preference name="appBackground" value="rgba(0,0,0,0.0)"/>
+	<preference name="windowBackground" value="rgba(0,0,0,0.0)"/>
+	<preference name="frameBackgroundColor" value="rgba(0,0,0,0.0)"/>
+    <preference name="autoLaunch" value="false" />
+	<preference name="autoUpdate" value="true" />
+	<preference name="smartUpdate" value="false" />
+	<preference name="debug" value="true"/>
+	<preference name="iOS7StatusBarAppearance" value="true"/>
+	<permission name="location" />
+</widget>

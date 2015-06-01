@@ -1,0 +1,58 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+    <title>蜻蜓FM</title>
+    <link rel="stylesheet" type="text/css" href="../css/api.css" />
+	<style>
+		
+	</style>
+</head>
+<body>
+    
+</body>
+<script type="text/javascript" src="../script/api.js"></script>
+<script type="text/javascript">
+    apiready = function(){
+        //主要内容
+        api.openFrame({
+            name: 'frm_disc_detail_c',
+            url: 'frm_disc_detail_c.html',
+            bounces: false,
+            rect: {
+                x: 0,
+                y: 0,
+                w: 'auto',
+                h: 'auto'
+            }
+        });
+
+        //透明header
+        var height = 56;
+        //适配iOS7+状态栏
+        if(api.systemType == 'ios'){
+            var ver = api.systemVersion;
+            var num = parseInt(ver,10);
+            var fullScreen = api.fullScreen;
+            var iOS7StatusBarAppearance = api.iOS7StatusBarAppearance;
+            if (num >= 7 && !fullScreen && iOS7StatusBarAppearance) {
+                height += 20;
+            }
+        }
+		api.openFrame({
+            name: 'frm_disc_detail_h',
+            url: 'frm_disc_detail_h.html',
+            bounces: false,
+            bgColor: 'rgba(0,0,0,0)',
+            rect: {
+                x: 0,
+                y: 0,
+                w: 'auto',
+                h: height
+            }
+        });
+        
+    };
+</script>
+</html>

@@ -1,0 +1,95 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+    <title>蜻蜓FM</title>
+    <link rel="stylesheet" type="text/css" href="../css/api.css" />
+	<style>
+		html,body{
+			height: 100%;
+			background: transparent;
+		}
+		#dialog{
+			background-color: #e7e7e7; border-radius: 6px;
+			position: absolute; margin: auto;
+			left: 0; right: 0; top: 0; bottom: 0;
+			width: 90%; height: 120px;
+			-webkit-transition: all .1s;
+			transition:all .1s;
+			-webkit-transform: scale(0);
+			transform:scale(0);
+			opacity: 0;
+		}
+		#dialog.in{
+			-webkit-transform: scale(1);
+			transform:scale(1);
+			opacity: 1;
+		}
+		header{
+			margin: 0 10px; padding: 10px 0; text-align: center;
+			font-size: 12px; color: #767676;
+			border-bottom: 2px solid #e13430;
+		}
+		#dialog p{
+			padding: 10px; font-size: 14px;
+		}
+		footer{
+			border-top: 1px solid #ddd;
+			display: -webkit-box;
+			display: -webkit-flex;
+			display: flex;
+		}
+		footer span{
+			color: #e13430; border-bottom-right-radius: 6px;
+			-webkit-box-flex: 1; 
+			-webkit-flex: 1;
+			flex: 1;
+			padding: 15px 0; text-align: center; font-size: 14px;
+		}
+		footer span.focus{
+			background-color: #b9b9b9;
+		}
+		footer span:first-child{
+			border-right: 1px solid #ddd; 
+			border-bottom-left-radius: 6px;
+			border-bottom-right-radius: 0;
+		}
+	</style>
+</head>
+<body>
+    <div id="dialog">
+    	<header>提醒</header>
+    	<p>退出后将不能收听</p>
+    	<footer>
+    		<span onclick="closeApp()" tapmode="focus">退出</span><span tapmode="focus" onclick="goBackground()">后台播放</span>
+    	</footer>
+    </div>
+</body>
+<script type="text/javascript" src="../script/api.js"></script>
+<script type="text/javascript" src="../script/zepto.js"></script>
+<script type="text/javascript">
+	function closeApp(){
+		api.closeWidget({
+			silent: true
+		});
+	}
+	function goBackground(){
+		$('#dialog').removeClass('in');
+		api.closeFrame();
+		api.toLauncher();
+	}
+    apiready = function(){
+    	$('#dialog').addClass('in');
+    	$(document.body).on('touchend',function(e){
+    		var dialog = document.getElementById('dialog');
+    		if(!$.contains(dialog, e.target)){
+    			$('#dialog').removeClass('in');
+    			setTimeout(function(){
+    				api.closeFrame();
+    			},200);
+    		}
+    	});
+    };
+</script>
+</html>

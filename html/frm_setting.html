@@ -1,0 +1,163 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+    <title>蜻蜓FM</title>
+    <link rel="stylesheet" type="text/css" href="../css/api.css" />
+	<style>
+		ul li{
+            padding: 10px; border-bottom: 1px solid #ddd;
+            line-height: 41px;
+            min-height: 41px; font-size: 16px; color: #272930;
+            background: url(../image/ic_arrow_general.png) no-repeat 96% center;
+            -webkit-background-size: 18px;
+            background-size: 18px;
+        }
+        ul li.focus{
+            background-color: #eee;
+        }
+        ul .cache, ul .update{
+            line-height: 1;
+        }
+        ul .cache .cached{
+            font-size: 12px; color: #787878; padding-top: 10px;
+        }
+        ul .auto{
+            display: -webkit-box;
+            display: -webkit-flex;
+            display: flex;
+        }
+        ul .auto .txt{
+            line-height: 41px; color: #787878;
+            -webkit-box-flex: 1; 
+            -webkit-flex: 1;
+            flex: 1;
+        }
+        ul .auto.on .txt{
+            color: #272930;
+        }
+        ul .auto .switch{
+            margin-top: 6px;
+            width: 48px; height: 29px; position: relative;
+            background: url(../image/sw_alarm_bg_off.png) no-repeat;
+            -webkit-background-size: contain;
+            background-size: contain;
+        }
+        ul .auto .bar{
+            width: 30px; height: 29px;
+            background:url(../image/sw_alarm_icon.png) no-repeat;
+            -webkit-background-size: contain;
+            background-size: contain;
+            -webkit-transition: all .3s;
+            transition: all .3s;
+            -webkit-transform: translateX(0px);
+            transform: translateX(0px);
+        }
+        ul .auto .switch.on{
+            background:url(../image/sw_alarm_bg_on.png) no-repeat;
+            -webkit-background-size: contain;
+            background-size: contain;
+        }
+        ul .auto .switch.on .bar{
+            -webkit-transform: translateX(20px);
+            transform: translateX(20px);
+        }
+        ul .update p.update{
+            color: #787878; font-size: 12px; padding-top: 10px;
+        }
+        ul .login{
+            border-bottom: none; background-color: #eee;
+            background-image: none;
+            text-align: center; padding: 10px 20px;
+        }
+        ul .login span{
+            padding: 10px 0; line-height: 1; border: 1px solid #e13430;
+            border-radius: 4px; color: #e13430; background-color: #fff;
+            width: 100%;
+        }
+	</style>
+</head>
+<body>
+    <ul>
+        <li class="cache" tapmode="focus" onclick="clearCache()">
+            <div>
+                <p class="clear">清除缓存</p>
+                <p class="cached">已缓存<span>0</span>MB</p>
+            </div>
+        </li>
+        <li class="auto" tapmode="focus">
+            <div class="txt">打开应用后自动播放</div>
+            <div class="switch" tapmode onclick="switchIt(this)">
+                <div class="bar"></div>
+            </div>
+        </li>
+        <li tapmode="focus">
+            音质设置
+        </li>
+        <li tapmode="focus">
+            消息推送
+        </li>
+        <li tapmode="focus">
+            常见问题
+        </li>
+        <li tapmode="focus">
+            意见反馈
+        </li>
+        <li class="update" tapmode="focus" onclick="checkUpdate()">
+            <p>检查更新</p>
+            <p class="update">已是最新</p>
+        </li>
+        <li tapmode="focus">
+            关于蜻蜓fm
+        </li>
+        <li class="login">
+            <span>账号登录</span>
+        </li>
+    </ul>
+</body>
+<script type="text/javascript" src="../script/api.js"></script>
+<script type="text/javascript">
+    function clearCache(){
+        api.clearCache();
+        $api.clearStorage();
+        alert('清除成功');
+    }
+    function switchIt(it){
+        $api.toggleCls(it, 'on');
+        $api.toggleCls(it.parentNode, 'on');
+    }
+    function checkUpdate(){
+        var mam = api.require('mam');
+        mam.checkUpdate(function(ret, err){
+            if (ret) {
+                var result = ret.result;
+                // alert(JSON.stringify(result));
+
+                if(result.update){
+                    alert('有新版本了');
+                }else{
+                    alert('已是最新版本')
+                }
+            } else{
+                api.alert({msg:err.msg});
+            };
+        });
+    }
+    apiready = function(){
+		var cacheDir = api.cacheDir;
+        var fs = api.require('fs');
+        fs.getAttribute({
+            path: cacheDir
+        },function(ret,err){
+            if (ret.status) {
+                // alert(JSON.stringify(ret.attribute));
+
+                var size = ret.attribute.size/1024/1024;
+                var cache = $api.dom('li.cache .cached span');
+                cache.innerHTML = size;
+            }
+        });
+    };
+</script>
+</html>
