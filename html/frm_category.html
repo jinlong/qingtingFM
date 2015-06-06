@@ -40,6 +40,69 @@
 		ul li:first-child div{
 			color: #e13430; border: none; background-color: transparent;
 		}
+		@-webkit-keyframes tada {
+		  0% {
+		    -webkit-transform: scale3d(1, 1, 1);
+		    transform: scale3d(1, 1, 1);
+		  }
+
+		  10%, 20% {
+		    -webkit-transform: scale3d(.9, .9, .9) rotate3d(0, 0, 1, -3deg);
+		    transform: scale3d(.9, .9, .9) rotate3d(0, 0, 1, -3deg);
+		  }
+
+		  30%, 50%, 70%, 90% {
+		    -webkit-transform: scale3d(1.1, 1.1, 1.1) rotate3d(0, 0, 1, 3deg);
+		    transform: scale3d(1.1, 1.1, 1.1) rotate3d(0, 0, 1, 3deg);
+		  }
+
+		  40%, 60%, 80% {
+		    -webkit-transform: scale3d(1.1, 1.1, 1.1) rotate3d(0, 0, 1, -3deg);
+		    transform: scale3d(1.1, 1.1, 1.1) rotate3d(0, 0, 1, -3deg);
+		  }
+
+		  100% {
+		    -webkit-transform: scale3d(1, 1, 1);
+		    transform: scale3d(1, 1, 1);
+		  }
+		}
+
+		@keyframes tada {
+		  0% {
+		    -webkit-transform: scale3d(1, 1, 1);
+		    -ms-transform: scale3d(1, 1, 1);
+		    transform: scale3d(1, 1, 1);
+		  }
+
+		  10%, 20% {
+		    -webkit-transform: scale3d(.9, .9, .9) rotate3d(0, 0, 1, -3deg);
+		    -ms-transform: scale3d(.9, .9, .9) rotate3d(0, 0, 1, -3deg);
+		    transform: scale3d(.9, .9, .9) rotate3d(0, 0, 1, -3deg);
+		  }
+
+		  30%, 50%, 70%, 90% {
+		    -webkit-transform: scale3d(1.1, 1.1, 1.1) rotate3d(0, 0, 1, 3deg);
+		    -ms-transform: scale3d(1.1, 1.1, 1.1) rotate3d(0, 0, 1, 3deg);
+		    transform: scale3d(1.1, 1.1, 1.1) rotate3d(0, 0, 1, 3deg);
+		  }
+
+		  40%, 60%, 80% {
+		    -webkit-transform: scale3d(1.1, 1.1, 1.1) rotate3d(0, 0, 1, -3deg);
+		    -ms-transform: scale3d(1.1, 1.1, 1.1) rotate3d(0, 0, 1, -3deg);
+		    transform: scale3d(1.1, 1.1, 1.1) rotate3d(0, 0, 1, -3deg);
+		  }
+
+		  100% {
+		    -webkit-transform: scale3d(1, 1, 1);
+		    -ms-transform: scale3d(1, 1, 1);
+		    transform: scale3d(1, 1, 1);
+		  }
+		}
+
+		.tada {
+		  -webkit-animation-name: tada;
+		  animation-name: tada;
+		}
 	</style>
 </head>
 <body>
@@ -82,6 +145,7 @@
     </div>
 </body>
 <script type="text/javascript" src="../script/api.js"></script>
+<script type="text/javascript" src="../script/Sortable.min.js"></script>
 <script type="text/javascript">
 	function slideUp(){
 		var wrap = $api.byId('wrap');
@@ -93,6 +157,9 @@
     apiready = function(){
 		var wrap = $api.byId('wrap');
 		$api.addCls(wrap, 'in');
+
+		var el = $api.dom('#wrap ul');
+		var sortable = Sortable.create(el);
     };
 </script>
 </html>
