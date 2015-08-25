@@ -73,10 +73,12 @@
             -webkit-box-sizing: border-box;
             box-sizing: border-box;
             position: absolute;
+            padding-right: 56px;
             z-index: 1;
             -webkit-transform: translateZ(0);
             transform: translateZ(0);
             display: block; white-space: nowrap; padding: 0 10px;
+            padding-right: 56px;
         }
         #subNav .discover .nav span{
             color: #8c8c8c; font-size: 13px; padding: 0 10px;
@@ -219,7 +221,7 @@
         }
     </style>
 </head>
-<body>
+<body onload="loaded();" >
     <div id="wrap">
         <header>
             <div id="header">
@@ -229,25 +231,27 @@
                 <div class="search" tapmode="focus" onclick="openTab('search')"><span>搜索</span></div>
             </div>
             <div id="subNav">
-                <div class="discover">
-                    <span class="nav">
-                        <span class="active" tapmode onclick="switchDiscFrm(this)">精选</span>
-                        <span tapmode onclick="switchDiscFrm(this)">电台</span>
-                        <span tapmode onclick="switchDiscFrm(this)">北京</span>
-                        <span tapmode onclick="switchDiscFrm(this)">小说</span>
-                        <span tapmode onclick="switchDiscFrm(this)">音乐</span>
-                        <span tapmode onclick="switchDiscFrm(this)">读报</span>
-                        <span tapmode onclick="switchDiscFrm(this)">新闻</span>
-                        <span tapmode onclick="switchDiscFrm(this)">相声小品</span>
-                        <span tapmode onclick="switchDiscFrm(this)">脱口秀</span>
-                        <span tapmode onclick="switchDiscFrm(this)">情感</span>
-                        <span tapmode onclick="switchDiscFrm(this)">健康</span>
-                        <span tapmode onclick="switchDiscFrm(this)">军事</span>
-                        <span tapmode onclick="switchDiscFrm(this)">历史</span>
-                        <span tapmode onclick="switchDiscFrm(this)">儿童</span>
-                        <span tapmode onclick="switchDiscFrm(this)">娱乐</span>
-                    </span>
-                    <em></em>
+                <div class="discover"  id="scrollBar" >
+                    <div class="nav">
+                         <div class="con" >
+                                <span class="active" tapmode onclick="switchDiscFrm(this)">精选</span>
+                                <span tapmode onclick="switchDiscFrm(this)">电台</span>
+                                <span tapmode onclick="switchDiscFrm(this)">北京</span>
+                                <span tapmode onclick="switchDiscFrm(this)">小说</span>
+                                <span tapmode onclick="switchDiscFrm(this)">音乐</span>
+                                <span tapmode onclick="switchDiscFrm(this)">读报</span>
+                                <span tapmode onclick="switchDiscFrm(this)">新闻</span>
+                                <span tapmode onclick="switchDiscFrm(this)">相声小品</span>
+                                <span tapmode onclick="switchDiscFrm(this)">脱口秀</span>
+                                <span tapmode onclick="switchDiscFrm(this)">情感</span>
+                                <span tapmode onclick="switchDiscFrm(this)">健康</span>
+                                <span tapmode onclick="switchDiscFrm(this)">军事</span>
+                                <span tapmode onclick="switchDiscFrm(this)">历史</span>
+                                <span tapmode onclick="switchDiscFrm(this)">儿童</span>
+                                <span tapmode onclick="switchDiscFrm(this)">娱乐</span>
+                              <em></em>
+                         </div>
+                    </div>
                     <span class="btn" id="expandMore" tapmode onclick="expandMore()"><i class="arr"></i></span>
                     <div class="category">
                         <h3>所有分类</h3>
@@ -280,7 +284,12 @@
 <script type="text/javascript" src="./script/zepto.js"></script>
 <script type="text/javascript" src="./script/iscroll-lite.js"></script>
 <script type="text/javascript">
+    
     var myScroll;
+    function loaded () {
+    	myScroll = new IScroll( '#scrollBar', { scrollX: true, scrollY: false, mouseWheel: true });
+    }
+
 
     //切换下载tab
     function toggleDownloadTab(index){
@@ -322,14 +331,46 @@
             hidden: true
         });
     }
-    //发现子菜单选中状态
-    function activeDiscNav(index){
-        $('#subNav .discover').find('span.active').removeClass('active');
-        $('#subNav .discover .nav span').eq(index).addClass('active');
-    }
+    
+    function activeDiscNav( index ){
+        var eSpan = document.querySelectorAll('.nav .con span');
+    	for( var x in eSpan ){
+    		if( eSpan[x].nodeType ){
+                    eSpan[x].className = '';
+			};
+		};
+        eSpan[index].className = 'active';
+        if( Number( index )  ){
+            document.querySelector('.nav .con em').style.cssText = 'left:'+eSpan[index].offsetLeft +'px; width:'+eSpan[index].offsetWidth +'px;';
+            myScroll.scrollToElement( eSpan[index - 1 ] , 800, null, true)
+        }else{
+            document.querySelector('.nav .con em').style.cssText = 'left:'+eSpan[index].offsetLeft +'px; width:'+eSpan[index].offsetWidth +'px;';
+            myScroll.scrollToElement( eSpan[index] , 800, null, true)
+        }
+	};
+    
+    
     //点菜单切换发现frameGroup
     function switchDiscFrm(it){
-        var index = $(it).index();
+        var eSpan = document.querySelectorAll('.nav .con span'),
+            index = 0;
+		for( var x in eSpan ){
+			if( eSpan[x].nodeType ){
+				if( eSpan[x] === it ){
+                    eSpan[x].className = 'active';
+                    index = x;
+				}else{
+                    eSpan[x].className = '';
+				};
+			};
+		};
+        if( Number( index ) ){
+            document.querySelector('.nav .con em').style.cssText = 'left:'+eSpan[index].offsetLeft +'px; width:'+eSpan[index].offsetWidth +'px;';
+            myScroll.scrollToElement( eSpan[index - 1 ] , 800, null, true)
+        }else{
+            document.querySelector('.nav .con em').style.cssText = 'left:'+it.offsetLeft +'px; width:'+it.offsetWidth +'px;';
+            myScroll.scrollToElement( eSpan[index] , 800, null, true)
+        }
         api.setFrameGroupIndex({
             name: 'frmg_discover',
             index: index
@@ -541,6 +582,7 @@
 
     apiready = function(){
         //发现导航
+        /*
         myScroll = new IScroll('#subNav .discover', {
             bounce: false,
             disableMouse: true,
@@ -549,6 +591,7 @@
             scrollX: true,
             scrollY: false
         });
+       */
 
         var header = document.querySelector('#header');
         $api.fixIos7Bar(header);
