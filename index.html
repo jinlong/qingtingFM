@@ -73,7 +73,6 @@
             -webkit-box-sizing: border-box;
             box-sizing: border-box;
             position: absolute;
-            padding-right: 56px;
             z-index: 1;
             -webkit-transform: translateZ(0);
             transform: translateZ(0);
@@ -287,7 +286,15 @@
     
     var myScroll;
     function loaded () {
-    	myScroll = new IScroll( '#scrollBar', { scrollX: true, scrollY: false, mouseWheel: true });
+        //发现导航
+    	myScroll = new IScroll( '#scrollBar', { 
+            bounce: false,
+            disableMouse: true,
+            disablePointer: true,
+            eventPassthrough: true,
+            scrollX: true,
+            scrollY: false
+        });
     }
 
 
@@ -440,19 +447,7 @@
                 }, function(ret, err){
                     var $discoverNav = $('#subNav .discover .nav span');
                     var index = ret.index;
-                    var left = $discoverNav.eq(index).position().left;
-                    // if(index >= 2){
-                        var x = -left;
-                        //移动菜单
-                        myScroll.scrollTo(x, 0, 300);
-                        
-                    // }else{
-                        //移动指示器
-                        // var $indicator = $('#subNav .discover em');
-                        // $indicator.css({
-                        //     left: left +'px'
-                        // })
-                    // }
+                    
                     activeDiscNav(index);
 
                 });
@@ -581,18 +576,6 @@
     }
 
     apiready = function(){
-        //发现导航
-        /*
-        myScroll = new IScroll('#subNav .discover', {
-            bounce: false,
-            disableMouse: true,
-            disablePointer: true,
-            eventPassthrough: true,
-            scrollX: true,
-            scrollY: false
-        });
-       */
-
         var header = document.querySelector('#header');
         $api.fixIos7Bar(header);
         api.setStatusBarStyle({
