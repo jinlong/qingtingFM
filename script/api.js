@@ -597,6 +597,21 @@
         );
     };
 
+    u.thisActive = function( tag ){
+		var eP = tag.parentNode.querySelectorAll( tag.tagName ),
+            index ;
+		for( var x in eP ){
+				if( eP[x].nodeType ){
+					if( eP[x] === tag ){
+						$api.addCls(  eP[x], 'active' );
+                        index = x;
+					}else{
+						$api.removeCls(  eP[x], 'active' );
+					};
+				};
+		};
+        return index;
+    };
 /*end*/
     
 
