@@ -340,44 +340,43 @@
     }
     
     function activeDiscNav( index ){
-        var eSpan = document.querySelectorAll('.nav .con span');
-    	for( var x in eSpan ){
-    		if( eSpan[x].nodeType ){
-                    eSpan[x].className = '';
-			};
-		};
-        eSpan[index].className = 'active';
-        if( Number( index )  ){
-            document.querySelector('.nav .con em').style.cssText = 'left:'+eSpan[index].offsetLeft +'px; width:'+eSpan[index].offsetWidth +'px;';
-            myScroll.scrollToElement( eSpan[index - 1 ] , 800, null, true)
-        }else{
-            document.querySelector('.nav .con em').style.cssText = 'left:'+eSpan[index].offsetLeft +'px; width:'+eSpan[index].offsetWidth +'px;';
-            myScroll.scrollToElement( eSpan[index] , 800, null, true)
-        }
+        var $eSpan = $('.nav .con span');
+        var $em = $('.nav .con em');
+        var $curSpan = $eSpan.eq(index);
+        $eSpan.removeClass('active');
+        $curSpan.addClass('active');
+
+        var curSpanPos = $curSpan.position();
+        var l = curSpanPos.left,
+            w = $curSpan.width();
+
+        $em.css({
+            'left': l+ 'px',
+            'width': w+ 'px'
+        });
+        myScroll.scrollToElement( $curSpan[0] , 300, true, null);
 	};
     
     
     //点菜单切换发现frameGroup
     function switchDiscFrm(it){
-        var eSpan = document.querySelectorAll('.nav .con span'),
-            index = 0;
-		for( var x in eSpan ){
-			if( eSpan[x].nodeType ){
-				if( eSpan[x] === it ){
-                    eSpan[x].className = 'active';
-                    index = x;
-				}else{
-                    eSpan[x].className = '';
-				};
-			};
-		};
-        if( Number( index ) ){
-            document.querySelector('.nav .con em').style.cssText = 'left:'+eSpan[index].offsetLeft +'px; width:'+eSpan[index].offsetWidth +'px;';
-            myScroll.scrollToElement( eSpan[index - 1 ] , 800, null, true)
-        }else{
-            document.querySelector('.nav .con em').style.cssText = 'left:'+it.offsetLeft +'px; width:'+it.offsetWidth +'px;';
-            myScroll.scrollToElement( eSpan[index] , 800, null, true)
-        }
+        var $eSpan = $('.nav .con span');
+        $eSpan.removeClass('active');
+        var $em = $('.nav .con em');
+        $(it).addClass('active');
+        var index = $(it).index();
+
+        var $curSpan = $eSpan.eq(index);
+        var curSpanPos = $curSpan.position();
+        var l = curSpanPos.left,
+            w = $curSpan.width();
+        $em.css({
+            'left': l+ 'px',
+            'width': w+ 'px'
+        });
+        
+        myScroll.scrollToElement( $curSpan[0] , 300, true, null);
+        
         api.setFrameGroupIndex({
             name: 'frmg_discover',
             index: index
