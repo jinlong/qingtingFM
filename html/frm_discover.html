@@ -48,19 +48,14 @@
             background-color: #fff;
         }
         .content{
-            padding: 0 10px 15px;
-            display: -webkit-box;
-            display: -webkit-flex;
-            display: flex;
+            padding: 0 0 15px 10px;
+            overflow: hidden;
         }
         .content li{
             padding-right: 10px; 
-            -webkit-box-flex: 1; 
-            -webkit-flex: 1;
-            flex: 1;
-        }
-        .content li:last-child{
-            padding-right: 0;
+            float: left; width: 33.32%; 
+            -webkit-box-sizing: border-box;
+            box-sizing: border-box;
         }
         .content li img{
             width: 100%; display: block;
@@ -173,7 +168,7 @@
 </div>
 
  
-<!--<section>
+<!-- <section>
     <header>
         <span>新闻</span><em>更多&gt;</em>
     </header>
@@ -200,8 +195,7 @@
             <label>苏州24岁工程师</label>
         </li>
     </ul>
-</section>-->
-
+</section> -->
 
 </body>
 <script type="text/javascript" src="../script/api-lite.js"></script>
@@ -324,11 +318,11 @@
         });
 
         
-        // api.addEventListener({
-        //     name: 'scrolltobottom'
-        // }, function(ret, err){
+           api.addEventListener({
+               name: 'scrolltobottom'
+           }, function(ret, err){
 
-        // });
+           });
 
     };
 </script>
